@@ -19,6 +19,7 @@ configurations {
 }
 
 dependencies {
+	implementation 'com.github.120011676:ladybird-spring-boot-web-helper:latest.release'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
