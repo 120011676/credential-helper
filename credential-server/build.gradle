@@ -4,10 +4,6 @@ plugins {
 	id 'java'
 }
 
-group = 'com.github.qq120011676'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
 configurations {
 	developmentOnly
 	runtimeClasspath {
