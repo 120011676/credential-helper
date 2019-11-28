@@ -1,1 +1,3 @@
-rootProject.name = 'token-server'
+rootProject.name = 'token-helper'
+
+include 'token-server'
