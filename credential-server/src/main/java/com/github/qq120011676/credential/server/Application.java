@@ -1,8 +1,10 @@
-package com.github.qq120011676.token.server;
+package com.github.qq120011676.credential.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
+@EnableCaching
 @SpringBootApplication(scanBasePackages = {"com.github.qq120011676.ladybird"}, scanBasePackageClasses = Application.class)
 public class Application {
 

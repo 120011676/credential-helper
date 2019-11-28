@@ -1,4 +1,4 @@
-package com.github.qq120011676.token.server.enitity;
+package com.github.qq120011676.credential.common.entity;
 
 import lombok.Data;
 
@@ -10,5 +10,5 @@ import java.time.ZonedDateTime;
 public class CredentialEntity implements Serializable {
     private String token;
     private ZonedDateTime zonedDateTime = ZonedDateTime.now();
-    private Duration duration;
+    private Duration timeout;
 }

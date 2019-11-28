@@ -1,8 +1,9 @@
-package com.github.qq120011676.token.server.controller;
+package com.github.qq120011676.credential.server.controller;
 
+import com.github.qq120011676.credential.common.entity.CredentialEntity;
+import com.github.qq120011676.credential.server.entity.Result;
+import com.github.qq120011676.credential.server.servicce.CredentialService;
 import com.github.qq120011676.ladybird.web.exception.RestfulExceptionHelper;
-import com.github.qq120011676.token.server.enitity.CredentialEntity;
-import com.github.qq120011676.token.server.servicce.CredentialService;
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,37 +22,37 @@ public class CredentialController {
     private RestfulExceptionHelper restfulExceptionHelper;
 
     @RequestMapping("get")
-    public CredentialEntity get(String timeout) {
+    public String get(String timeout) {
         String key = UUID.randomUUID().toString();
         CredentialEntity credential = new CredentialEntity();
         credential.setToken(key);
         if (StringUtils.hasText(timeout)) {
-            credential.setDuration(DurationStyle.SIMPLE.parse(timeout));
+            credential.setTimeout(DurationStyle.SIMPLE.parse(timeout));
         }
-        return this.credentialService.setCredential(key, credential);
+        return this.credentialService.set(key, credential);
     }
 
     @RequestMapping("check")
-    public boolean check(String token) {
+    public Result check(String token) {
         if (!StringUtils.hasText(token)) {
             throw this.restfulExceptionHelper.getRestfulRuntimeException("token_null_error");
         }
-        CredentialEntity credential = this.credentialService.getCredential(token);
+        CredentialEntity credential = this.credentialService.get(token);
         if (credential == null) {
             throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_not_found");
         }
-        if (credential.getDuration() != null && ZonedDateTime.now().isAfter(credential.getZonedDateTime().plusSeconds(credential.getDuration().toSeconds()))) {
+        if (credential.getTimeout() != null && ZonedDateTime.now().isAfter(credential.getZonedDateTime().plusSeconds(credential.getTimeout().toSeconds()))) {
             throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_timeout_error");
         }
-        return true;
+        return new Result(true);
     }
 
     @RequestMapping("verify")
-    public boolean verify(String token) {
-        boolean bol = this.check(token);
-        if (bol) {
-            this.credentialService.cleanCredential(token);
+    public Result verify(String token) {
+        Result result = this.check(token);
+        if (result.isStatus()) {
+            this.credentialService.clean(token);
         }
-        return bol;
+        return result;
     }
 }
