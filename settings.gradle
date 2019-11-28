@@ -5,4 +5,5 @@ include 'credential-spring-boot-autoconfigure'
 include 'credential-client'
 include 'credential-common'
 include 'credential-spring-boot-stater'
+include 'credential-aop'
 
