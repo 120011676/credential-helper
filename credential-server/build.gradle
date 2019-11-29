@@ -2,7 +2,6 @@ plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    id 'docker'
 }
 
 configurations {
@@ -32,33 +31,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-buildscript {
-    dependencies {
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
-    }
-}
-
-docker {
-    baseImage "openjdk:13-alpine"
-    maintainer 'Say.li "120011676@qq.com"'
-    useApi true
-    hostUrl 'https://docker.com'
-    apiUsername docker_username
-    apiPassword docker_password
-    apiEmail '120011676@qq.com'
-}
-
-task javaDocker(type: Docker) {
-    applicationName = 'credential-server'
-    tagVersion = 'latest'
-    setEnvironment 'TZ' 'Asia/Shanghai'
-    runCommand 'apk --update add tzdata && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone'
-    switchUser 'credential'
-    workingDir '/opt'
-    setEnvironment 'PROJECT_JAR_NAME' 'credential-server-0.0.1.jar'
-    addFile 'build/libs/$PROJECT_JAR_NAME' '.'
-    exposePort 8080
-    defaultCommand 'java -jar $PROJECT_JAR_NAME'
 }

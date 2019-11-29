@@ -1,5 +1,5 @@
 services:
-  industry-server-web:
+  credential-server:
     image: 120011676/credential-server
     restart: always
     environment:
