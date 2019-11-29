@@ -24,6 +24,11 @@ subprojects {
 
     sourceCompatibility = 13
 
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
     publishing {
         publications {
             mavenJava(MavenPublication) {
