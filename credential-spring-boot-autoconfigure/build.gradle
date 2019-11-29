@@ -5,7 +5,7 @@ sourceCompatibility = 1.8
 dependencies {
     implementation project(":credential-client")
     implementation "org.springframework.boot:spring-boot-autoconfigure:latest.release"
-    compileOnly "org.springframework.boot:spring-boot-configuration-processor:latest.release"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:latest.release"
     compileOnly 'jakarta.annotation:jakarta.annotation-api:latest.release'
     compileOnly 'org.projectlombok:lombok:latest.release'
     annotationProcessor 'org.projectlombok:lombok:latest.release'

@@ -2,7 +2,7 @@ plugins {
     id "base"
 }
 
-description = 'token helper'
+description = 'credential helper'
 
 allprojects {
     group = 'com.github.120011676'

@@ -20,3 +20,5 @@ ladybird:
       credential_not_found:
         httpStatus: 400
         message: token未找到
+server:
+  port: 8000
