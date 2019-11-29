@@ -33,7 +33,7 @@ public class CredentialClient {
         Connection.Response response = connection.ignoreContentType(true).ignoreHttpErrors(true).execute();
         String body = response.body();
         if (200 != response.statusCode()) {
-            throw new RuntimeException(body);
+            throw new RuntimeException(new Gson().fromJson(body,JsonObject.class).get("message").getAsString());
         }
         if (!StringUtil.isBlank(body)) {
             JsonObject jsonObject = new Gson().fromJson(body, JsonObject.class);
@@ -62,7 +62,7 @@ public class CredentialClient {
     private boolean analysisStatus(Connection.Response response) {
         String body = response.body();
         if (200 != response.statusCode()) {
-            throw new RuntimeException(body);
+            throw new RuntimeException(new Gson().fromJson(body,JsonObject.class).get("message").getAsString());
         }
         if (!StringUtil.isBlank(body)) {
             return new Gson().fromJson(body, JsonObject.class).get("status").getAsBoolean();
