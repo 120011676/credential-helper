@@ -8,6 +8,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +26,12 @@ public class CredentialInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         HttpServletRequest request = ControllerHelper.getHttpServletRequest();
-        String credentialToken = request.getParameter(this.credentialAOPProperties.getParameterName());
-        boolean bol = this.credentialClient.verify(credentialToken);
+        String token = request.getParameter(this.credentialAOPProperties.getParameterName());
+        String headerToken = request.getHeader(this.credentialAOPProperties.getHeaderName());
+        if (StringUtils.hasText(headerToken)) {
+            token = headerToken;
+        }
+        boolean bol = this.credentialClient.verify(token);
         if (bol) {
             throw restfulExceptionHelper.getRestfulRuntimeException("credential_error");
         }
