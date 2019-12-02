@@ -31,9 +31,12 @@ public class CredentialInterceptor implements MethodInterceptor {
         if (StringUtils.hasText(headerToken)) {
             token = headerToken;
         }
+        if (!StringUtils.hasText(token)) {
+            throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_token_not_null");
+        }
         boolean bol = this.credentialClient.verify(token);
         if (bol) {
-            throw restfulExceptionHelper.getRestfulRuntimeException("credential_error");
+            throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_error");
         }
         return invocation.proceed();
     }
