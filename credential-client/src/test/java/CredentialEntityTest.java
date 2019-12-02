@@ -1,17 +1,14 @@
-import com.github.qq120011676.credential.common.entity.CredentialEntity;
+import com.github.qq120011676.credential.common.entity.CredentialViewEntity;
 import com.google.gson.Gson;
-
-import java.time.Duration;
 
 public class CredentialEntityTest {
     public static void main(String[] args) {
-        CredentialEntity credential = new CredentialEntity();
-        credential.setToken("1");
-        credential.setTimeout(Duration.ofSeconds(5));
+        CredentialViewEntity credentialView = new CredentialViewEntity();
+        credentialView.setToken("1");
         Gson gson = new Gson();
-        String json = gson.toJson(credential);
+        String json = gson.toJson(credentialView);
         System.out.println(json);
-        CredentialEntity c = gson.fromJson(json, CredentialEntity.class);
+        CredentialViewEntity c = gson.fromJson(json, CredentialViewEntity.class);
         System.out.println(c);
     }
 }

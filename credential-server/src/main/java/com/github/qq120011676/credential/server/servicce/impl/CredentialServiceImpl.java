@@ -1,6 +1,6 @@
 package com.github.qq120011676.credential.server.servicce.impl;
 
-import com.github.qq120011676.credential.common.entity.CredentialEntity;
+import com.github.qq120011676.credential.server.entity.CredentialEntity;
 import com.github.qq120011676.credential.server.servicce.CacheService;
 import com.github.qq120011676.credential.server.servicce.CredentialService;
 import com.google.gson.Gson;

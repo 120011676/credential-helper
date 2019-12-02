@@ -1,4 +1,4 @@
-package com.github.qq120011676.credential.common.entity;
+package com.github.qq120011676.credential.server.entity;
 
 import lombok.Data;
 
