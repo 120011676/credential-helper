@@ -68,4 +68,17 @@ public class CredentialController {
         }
         return result;
     }
+
+    @RequestMapping("use")
+    public Result use(String unique) {
+        if (this.credentialService.get(unique) != null) {
+            throw this.restfulExceptionHelper.getRestfulRuntimeException("unique_use_error");
+        }
+        CredentialEntity credential = new CredentialEntity();
+        credential.setToken(unique);
+        this.credentialService.set(unique, credential);
+        Result result = new Result();
+        result.setStatus(true);
+        return result;
+    }
 }

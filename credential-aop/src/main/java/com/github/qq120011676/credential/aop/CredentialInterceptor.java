@@ -26,17 +26,29 @@ public class CredentialInterceptor implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         HttpServletRequest request = ControllerHelper.getHttpServletRequest();
-        String token = request.getParameter(this.credentialAOPProperties.getParameterName());
-        String headerToken = request.getHeader(this.credentialAOPProperties.getHeaderName());
+        String token = request.getParameter(this.credentialAOPProperties.getParameterTokenName());
+        String headerToken = request.getHeader(this.credentialAOPProperties.getHeaderTokenName());
         if (StringUtils.hasText(headerToken)) {
             token = headerToken;
         }
-        if (!StringUtils.hasText(token)) {
-            throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_token_not_null");
+        String unique = request.getParameter(this.credentialAOPProperties.getParameterUniqueName());
+        String headerUnique = request.getHeader(this.credentialAOPProperties.getHeaderUniqueName());
+        if (StringUtils.hasText(unique)) {
+            unique = headerUnique;
         }
-        boolean bol = this.credentialClient.verify(token);
-        if (bol) {
-            throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_error");
+        if (!StringUtils.hasText(token) && !StringUtils.hasText(unique)) {
+            throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_not_null");
+        }
+        if (StringUtils.hasText(token)) {
+            boolean bol = this.credentialClient.verify(token);
+            if (bol) {
+                throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_token_error");
+            }
+        } else if (StringUtils.hasText(unique)) {
+            boolean bol = this.credentialClient.use(unique);
+            if (bol) {
+                throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_unique_error");
+            }
         }
         return invocation.proceed();
     }

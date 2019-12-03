@@ -20,3 +20,6 @@ ladybird:
       credential_not_found:
         httpStatus: 400
         message: token未找到
+      token_use_error:
+        httpStatus: 400
+        message: unique已被使用

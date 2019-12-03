@@ -13,9 +13,17 @@ public class CredentialAOPProperties {
     /**
      * token参数名称
      */
-    private String parameterName = "credentialToken";
+    private String parameterTokenName = "credentialToken";
     /**
      * token header名称
      */
-    private String headerName = "Credential-Token";
+    private String headerTokenName = "Credential-Token";
+    /**
+     * 唯一参数名称
+     */
+    private String parameterUniqueName = "credentialUnique";
+    /**
+     * token header名称
+     */
+    private String headerUniqueName = "Credential-Unique";
 }

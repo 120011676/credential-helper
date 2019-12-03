@@ -48,6 +48,11 @@ public class CredentialClient {
         return analysisStatus(response);
     }
 
+    public boolean use(String unique) throws IOException {
+        Connection.Response response = Jsoup.connect(MessageFormat.format("{0}/credential/use", this.baseUrl)).data("unique", unique).method(Connection.Method.POST).ignoreContentType(true).ignoreHttpErrors(true).execute();
+        return analysisStatus(response);
+    }
+
     private boolean analysisStatus(Connection.Response response) {
         String body = response.body();
         if (200 != response.statusCode()) {
