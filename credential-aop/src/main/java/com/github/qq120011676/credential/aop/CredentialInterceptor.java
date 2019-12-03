@@ -41,12 +41,12 @@ public class CredentialInterceptor implements MethodInterceptor {
         }
         if (StringUtils.hasText(token)) {
             boolean bol = this.credentialClient.verify(token);
-            if (bol) {
+            if (!bol) {
                 throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_token_error");
             }
         } else if (StringUtils.hasText(unique)) {
             boolean bol = this.credentialClient.use(unique);
-            if (bol) {
+            if (!bol) {
                 throw this.restfulExceptionHelper.getRestfulRuntimeException("credential_unique_error");
             }
         }
