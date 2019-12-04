@@ -1,9 +1,8 @@
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation project(":credential-spring-boot-stater")
-    compileOnly project(":credential-client")
-    implementation 'com.github.120011676:ladybird-spring-boot-web-helper:latest.release'
+    api project(":credential-spring-boot-stater")
+    api 'com.github.120011676:ladybird-spring-boot-web-helper:latest.release'
     implementation "org.springframework.boot:spring-boot-autoconfigure:latest.release"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:latest.release"
     compileOnly 'javax.servlet:javax.servlet-api:latest.release'
