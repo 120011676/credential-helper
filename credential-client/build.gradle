@@ -1,7 +1,7 @@
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation project(":credential-common")
+    api project(":credential-common")
     implementation 'org.jsoup:jsoup:latest.release'
     implementation 'com.google.code.gson:gson:latest.release'
     implementation 'org.apache.commons:commons-text:latest.release'
